@@ -18,14 +18,14 @@ model.a = Param(model.M, model.N) # Inequality coefficients
 model.b = Param(model.M) # Inequality RHS terms
 model.c = Param(model.N) # Objective function coefficients
 # the next line declares a variable indexed by the set N
-model.x = Var(model.N, within=Binary)
-
+model.x = Var(model.N, within=Binary) # xn >= 0
 # Construct the objective function z = a1x1+a2x2+....+anxn
 def obj_expression(model):
     return sum(model.c[j]*model.x[j] for j in model.N)
-model.obj = Objective(rule=obj_expression, sense=minimize)
 
+model.obj = Objective(rule=obj_expression, sense=minimize)
 # Construct the constraints c1xc2x2+...+cnxn<=bm
+
 def ax_constraint_rule(model, i):
 # return the expression for the constraint for i
     return sum(model.a[i, j] * model.x[j] for j in model.N) <= model.b[i]
