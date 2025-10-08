@@ -6,8 +6,10 @@ from __future__ import division
 from pyomo.environ import Binary, NonNegativeReals
 from coopr.pyomo import *
 import os
+
 # Initialize model
 model = AbstractModel()
+
 # Number of variable xn
 model.n = Param()
 # Number of inequality constraints
@@ -31,7 +33,6 @@ model.obj = Objective(rule=obj_expression, sense=maximize)
 def ax_constraint_rule(model, i):
 # return the expression for the constraint for i
     return sum(model.a[i, j] * model.x[j] for j in model.N) <= model.b[i]
-
 
 # the next line creates one constraint for each member of the set model.M
 model.AxbConstraint = Constraint(model.M, rule=ax_constraint_rule)
