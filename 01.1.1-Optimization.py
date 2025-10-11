@@ -36,3 +36,5 @@ def ax_constraint_rule(model, i):
 
 # the next line creates one constraint for each member of the set model.M
 model.AxbConstraint = Constraint(model.M, rule=ax_constraint_rule)
+
+# pyomo solve 01.1.1-Optimization.py 01.1.2-Data.dat --solver=glpk --show-results
